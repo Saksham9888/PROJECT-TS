@@ -9,10 +9,7 @@ export interface IState {
     },
     notes: {
         [email: string]: {
-            notesList: {
-                title: string,
-                text: string
-            }
+            notesList: []
         }
     }
 }

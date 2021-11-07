@@ -106,9 +106,10 @@ const DashBoard = () => {
     const classes = useStyles();
     const history = useHistory();
     const notesContext = useContext(userDataContext)
+    const userEmail = localStorage.getItem('SignInEmail');
 
     const onSave = (e: any) => {
-        notesContext.userNotesData(userNotes);
+        notesContext.userNotesData(userNotes, userEmail);
         e.preventDefault();
         setUserNotes({ title: '', text: '' })
     }

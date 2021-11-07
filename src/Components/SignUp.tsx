@@ -125,7 +125,8 @@ const SignUp = () => {
     const context = useContext(userDataContext);
 
     const Submit = () => {
-        const getEmail= localStorage.getItem('SignUpEmail')
+        console.log(formField)
+        const getEmail = localStorage.getItem('SignUpEmail')
 
         if (formField.firstName.length <= 3 && formField.lastName.length <= 3) {
             alert("FirstName And LastName Should Be More Than 3 Characters")
@@ -141,7 +142,7 @@ const SignUp = () => {
                 return false
             }
         }
-        if(formField.email === getEmail){
+        if (formField.email === getEmail) {
             alert('User Already Exists!')
             return false;
         }
@@ -173,10 +174,10 @@ const SignUp = () => {
             return false
         }
         context.signUpData(formField);
-        
-        }
+
+    }
     // console.log(`FirstName: ${firstName}`, `LastName: ${lastName}`, `Email: ${email}`, `Password: ${password}`, `ConfirmPassword: ${confirmPassword}`)
-    
+
     const classes = useStyles();
     return (
         <div style={{ backgroundColor: 'black' }}>
@@ -261,9 +262,9 @@ const SignUp = () => {
                                             I accept the
                                             <Link className={classes.link} to='privacyPolicy'>
                                                 Terms of Use</Link> &
-                                                 <Link className={classes.link} to='privacyPolicy'>
+                                            <Link className={classes.link} to='privacyPolicy'>
                                                 Privacy Policy
-                                                     </Link>
+                                            </Link>
                                         </Typography>
                                     </div>
                                     <div className={classes.btnDiv}>
