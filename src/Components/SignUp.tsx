@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 const SignUp = () => {
-
+    const history = useHistory();
     const [formField, setFormField] = useState({
         firstName: '', lastName: '', email: '', password: '', confirmPassword: ''
     })
@@ -121,12 +121,9 @@ const SignUp = () => {
         })
     }
 
-    const history = useHistory();
     const context = useContext(userDataContext);
 
     const Submit = () => {
-        console.log(formField)
-        const getEmail = localStorage.getItem('SignUpEmail')
 
         if (formField.firstName.length <= 3 && formField.lastName.length <= 3) {
             alert("FirstName And LastName Should Be More Than 3 Characters")
@@ -141,10 +138,6 @@ const SignUp = () => {
                 alert("Enter a valid Email");
                 return false
             }
-        }
-        if (formField.email === getEmail) {
-            alert('User Already Exists!')
-            return false;
         }
         if (formField.password === "") {
             alert("Enter a password");
@@ -166,14 +159,20 @@ const SignUp = () => {
             alert('Please Agree To Terms & Conditions')
             return false
         }
-        if (formField.confirmPassword === formField.password) {
-            history.push('./signin')
-        }
+        // if (formField.confirmPassword === formField.password) {
+        //     return true;
+        // }
         if (formField.password !== formField.confirmPassword) {
             alert('Password Miss Match!')
             return false
         }
-        context.signUpData(formField);
+        context.signUpData(formField)
+        if (context.signUpData(formField)) { 
+            history.push('./signin') 
+        }
+        // while(context.signUpData(formField)== true){
+        //     history.push('./signin')
+        // }
 
     }
     // console.log(`FirstName: ${firstName}`, `LastName: ${lastName}`, `Email: ${email}`, `Password: ${password}`, `ConfirmPassword: ${confirmPassword}`)
@@ -262,9 +261,9 @@ const SignUp = () => {
                                             I accept the
                                             <Link className={classes.link} to='privacyPolicy'>
                                                 Terms of Use</Link> &
-                                            <Link className={classes.link} to='privacyPolicy'>
+                                                 <Link className={classes.link} to='privacyPolicy'>
                                                 Privacy Policy
-                                            </Link>
+                                                     </Link>
                                         </Typography>
                                     </div>
                                     <div className={classes.btnDiv}>

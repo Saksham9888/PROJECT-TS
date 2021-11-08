@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
-import userDataContext from '../Context/user/userDataContext'
-import '@fontsource/roboto'
+import AddNotes from './AddNotes';
+import userDataContext from '../Context/user/userDataContext';
+import '@fontsource/roboto';
 // import { Theme } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom';
-import { Toolbar, Box, Typography, Paper, AppBar, TextField, TextareaAutosize, Divider, Button, Grid } from '@material-ui/core'
-import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-ui/core/styles'
-import { lightBlue } from '@material-ui/core/colors'
+import { Toolbar, Box, Typography, Paper, AppBar, TextField, TextareaAutosize, Divider, Button, Grid } from '@material-ui/core';
+import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-ui/core/styles';
+import { lightBlue } from '@material-ui/core/colors';
 
 const theme = createTheme({
     palette: {
@@ -27,32 +28,27 @@ const useStyles = makeStyles((theme) => createStyles({
         height: '40%',
         width: '35vh',
         margin: '90px 30px 20px',
-        borderRadius: '5px',
-        borderColor: '#483D8B',
-        border: '1px solid',
         position: 'relative',
         // display: 'flex'
     },
-    // paperAddNotes: {
-    //     height: '40%',
-    //     width: '100%'
-    // },
+    border: {
+        border: '1px solid',
+        borderRadius: '5px',
+        borderColor: '#483D8B',
+    },
     // addNotes:{
     // },
     box2: {
         height: '50%',
         width: '17%',
         margin: '65px 30px 20px',
-        borderRadius: '5px',
-        borderColor: '#483D8B',
-        border: '1px solid',
-        // position: 'relative',
+        position: 'relative',
         // display: 'flex'
     },
-    // div: {
-    //     // display: 'block',
-    //     width: 'auto'
-    // },
+    div: {
+        display: 'block',
+        position: 'relative'
+    },
     addNotesBox: {
         marginLeft: '30%',
     },
@@ -93,26 +89,46 @@ const useStyles = makeStyles((theme) => createStyles({
             color: '#FFF',
             backgroundColor: '#5D4037'
         }
+    },
+    redBtn: {
+        backgroundColor: '#B22222',
+        color: '#FFF',
+        '&:hover': {
+            color: '#FFF',
+            backgroundColor: '#8B0000'
+        }
     }
 }))
 
 
 
 const DashBoard = () => {
+    const [count, setCount] = useState(0);
     const [userNotes, setUserNotes] = useState({
         title: '', text: ''
     })
 
     const classes = useStyles();
     const history = useHistory();
+    const userEmail: any = localStorage.getItem('SignInEmail')
     const notesContext = useContext(userDataContext)
-    const userEmail = localStorage.getItem('SignInEmail');
 
+    const userNotesField = notesContext.userData.notes[userEmail]
+    const data = userNotesField?.notesList ? userNotesField.notesList : [];
+    const setData = notesContext.setUserData;
+    // console.log('data', data)
     const onSave = (e: any) => {
         notesContext.userNotesData(userNotes, userEmail);
         e.preventDefault();
         setUserNotes({ title: '', text: '' })
+        setCount(count + 1);
     }
+
+    const onDelete = (index: any) => {
+        data.splice(index, 1)
+        setData(data);
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const targetValue = e.target.value;
         const targetName = e.target.name;
@@ -143,9 +159,9 @@ const DashBoard = () => {
                     </Toolbar>
                 </AppBar>
                 <div>
-                    <div className= {classes.outterGrid}>
+                    <div className={classes.outterGrid}>
                         <div className={classes.box1}>
-                            <Paper>
+                            <Paper className={classes.border}>
                                 <Box className={classes.boxHeading}>
                                     <Typography variant='body2'>Add Note</Typography>
                                 </Box>
@@ -178,20 +194,27 @@ const DashBoard = () => {
                                 </Box>
                             </Paper>
                         </div>
+                        {
+                            data.map((notesData: any, index: any) => (
+                                <AddNotes key= {index} title={notesData.title} text={notesData.text} deleteNote= {onDelete} />
+                            ))
+                        }
                     </div>
-                    <Grid className={classes.box2}>
-                        <Paper>
-                            <Box className={classes.boxHeading}>
-                                <Typography variant='body2'>Status</Typography>
-                            </Box>
-                            <Box className={classes.detailBox}>
-                                <Typography className={classes.heading} variant='subtitle2'>Total Notes: </Typography>
-                            </Box>
-                            <Box className={classes.detailBox}>
-                                <Typography className={classes.heading} variant='subtitle2'>Last Update: </Typography>
-                            </Box>
-                        </Paper>
-                    </Grid>
+                    <div className={classes.div}>
+                        <Grid className={classes.box2}>
+                            <Paper className={classes.border}>
+                                <Box className={classes.boxHeading}>
+                                    <Typography variant='body2'>Status</Typography>
+                                </Box>
+                                <Box className={classes.detailBox}>
+                                    <Typography className={classes.heading} variant='subtitle2'>Total Notes: {count}</Typography>
+                                </Box>
+                                <Box className={classes.detailBox}>
+                                    <Typography className={classes.heading} variant='subtitle2'>Last Update: </Typography>
+                                </Box>
+                            </Paper>
+                        </Grid>
+                    </div>
                 </div>
             </ThemeProvider>
         </div>
