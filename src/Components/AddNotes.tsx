@@ -25,12 +25,14 @@ const useStyles = makeStyles(() => createStyles({
     },
     textFieldBox: {
         margin: '20px 15px 40px',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     heading: {
         fontWeight: 'bold',
-        width: '30vh',
-        display: 'flex'
+        maxwidth: '30vh',
+        position: 'relative',
     },
     divider: {
         backgroundColor: '#512DA8',
@@ -49,35 +51,37 @@ const useStyles = makeStyles(() => createStyles({
         }
     },
 }))
-const AddNotes = (props: {title: any, text: any, deleteNote: (index: any)=> void }) => {
+const AddNotes = (props: { title: any, id: any, text: any, deleteNote:(id: any)=> void }) => {
 
     const classes = useStyles();
     return (
-            <div className={classes.box1}>
-                <Paper className={classes.border}>
-                    <Box className={classes.boxHeading}>
-                        <Typography variant='body2'>{props.title}</Typography>
-                    </Box>
-                    <Box className={classes.textFieldBox}>
-                        {/* <Typography className={classes.heading} variant='subtitle2'>
+        <div className={classes.box1}>
+            <Paper className={classes.border}>
+                <Box className={classes.boxHeading}>
+                    <Typography variant='body2'>{props.title}</Typography>
+                </Box>
+                <Box className={classes.textFieldBox}>
+                    {/* <Typography className={classes.heading} variant='subtitle2'>
                             Title: {props.title}
                         </Typography> */}
-                        <Typography className={classes.heading} variant='subtitle2'>
+                    <Typography variant='subtitle2'>
+                        <div>
                             {props.text}
-                        </Typography>
-                    </Box>
-                    <Divider className={classes.divider} />
-                    <Box className={classes.btn}>
-                        <Button
-                            className={classes.redBtn}
-                            size='small'
-                            variant='contained'
-                            fullWidth
-                        // onClick = {props.deleteNote}
-                        >Delete</Button>
-                    </Box>
-                </Paper>
-            </div>
+                        </div>
+                    </Typography>
+                </Box>
+                <Divider className={classes.divider} />
+                <Box className={classes.btn}>
+                    <Button
+                        className={classes.redBtn}
+                        size='small'
+                        variant='contained'
+                        fullWidth
+                        onClick={() => {props.deleteNote(props.id)}}
+                    >Delete</Button>
+                </Box>
+            </Paper>
+        </div>
     )
 }
 

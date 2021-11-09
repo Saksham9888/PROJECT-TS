@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { Toolbar, Box, Typography, Paper, AppBar, TextField, TextareaAutosize, Divider, Button, Grid } from '@material-ui/core';
 import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-ui/core/styles';
 import { lightBlue } from '@material-ui/core/colors';
+import { exists } from 'fs';
 
 const theme = createTheme({
     palette: {
@@ -103,19 +104,19 @@ const useStyles = makeStyles((theme) => createStyles({
 
 
 const DashBoard = () => {
-    const [count, setCount] = useState(0);
-    const [userNotes, setUserNotes] = useState({
-        title: '', text: ''
-    })
-
     const classes = useStyles();
     const history = useHistory();
     const userEmail: any = localStorage.getItem('SignInEmail')
     const notesContext = useContext(userDataContext)
-
     const userNotesField = notesContext.userData.notes[userEmail]
     const data = userNotesField?.notesList ? userNotesField.notesList : [];
     const setData = notesContext.setUserData;
+    console.log('data', data);
+    const [userNotes, setUserNotes] = useState({
+        title: '', text: ''
+    })
+    const [count, setCount] = useState(data.length);
+
     // console.log('data', data)
     const onSave = (e: any) => {
         notesContext.userNotesData(userNotes, userEmail);
@@ -123,10 +124,11 @@ const DashBoard = () => {
         setUserNotes({ title: '', text: '' })
         setCount(count + 1);
     }
-
-    const onDelete = (index: any) => {
-        data.splice(index, 1)
+    const onDelete = (id: any) => {
+        data.splice(id, 1); 
         setData(data);
+        console.log('data', data)
+        // console.log('arr', arr)
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,8 +197,8 @@ const DashBoard = () => {
                             </Paper>
                         </div>
                         {
-                            data.map((notesData: any, index: any) => (
-                                <AddNotes key= {index} title={notesData.title} text={notesData.text} deleteNote= {onDelete} />
+                            data.map((notesData: any, id: any) => (
+                                <AddNotes key={id} id={id} title={notesData.title} text={notesData.text} deleteNote={onDelete} />
                             ))
                         }
                     </div>
