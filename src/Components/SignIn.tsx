@@ -4,7 +4,7 @@ import { Paper, Typography, Container, TextField, Button, Box, Divider } from '@
 import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-ui/core/styles'
 // import { Theme } from '@material-ui/core/styles'
 import { deepPurple, lightBlue } from '@material-ui/core/colors'
-import { useHistory, NavLink } from 'react-router-dom'
+import { useHistory, NavLink, BrowserRouter } from 'react-router-dom'
 import '@fontsource/roboto'
 
 const theme = createTheme({
@@ -128,62 +128,62 @@ const SignUp = () => {
     // console.log(userEmail, userPassword)
 
     const onSubmit = () => {
-        if(contextField.signInData(formField.email, formField.password)){
+        if (contextField.signInData(formField.email, formField.password)) {
             history.push('./dashboard')
         }
     }
 
     return (
         <div style={{ backgroundColor: 'black' }}>
-            <Container className={classes.root}>
-                <ThemeProvider theme={theme}>
-                    <Box className={classes.outterBox}>
-                        <Paper className={classes.paper}>
-                            <Box className={classes.upperBox1}>
-                                <Typography className={classes.box1UpperText} variant='h5'>Sign In</Typography>
-                                <Typography className={classes.box1LowerText} variant='subtitle2'>Please Enter Your User Details To LogIn</Typography>
-                            </Box>
-                            <Divider />
-                            <Box className={classes.box}>
-                                <form>
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            label='Email'
-                                            className={classes.inputField}
-                                            size="small"
-                                            name="email"
-                                            type="text"
-                                            variant="outlined"
-                                            value={formField.email}
-                                            onChange={handleChange}
-                                        />
+                <Container className={classes.root}>
+                    <ThemeProvider theme={theme}>
+                        <Box className={classes.outterBox}>
+                            <Paper className={classes.paper}>
+                                <Box className={classes.upperBox1}>
+                                    <Typography className={classes.box1UpperText} variant='h5'>Sign In</Typography>
+                                    <Typography className={classes.box1LowerText} variant='subtitle2'>Please Enter Your User Details To LogIn</Typography>
+                                </Box>
+                                <Divider />
+                                <Box className={classes.box}>
+                                    <form>
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                label='Email'
+                                                className={classes.inputField}
+                                                size="small"
+                                                name="email"
+                                                type="text"
+                                                variant="outlined"
+                                                value={formField.email}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                label='Password'
+                                                className={classes.inputField}
+                                                size="small"
+                                                name="password"
+                                                type="password"
+                                                variant="outlined"
+                                                value={formField.password}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className={classes.btnDiv}>
+                                            <Button variant="contained" className={classes.btn} color='primary' onClick={onSubmit}>Sign In</Button>
+                                        </div>
+                                    </form>
+                                    <div className={classes.divLink}>
+                                        <Typography>
+                                            Create new account here. <NavLink className={classes.link} to='/'>Create Account</NavLink>
+                                        </Typography>
                                     </div>
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            label='Password'
-                                            className={classes.inputField}
-                                            size="small"
-                                            name="password"
-                                            type="password"
-                                            variant="outlined"
-                                            value={formField.password}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={classes.btnDiv}>
-                                        <Button variant="contained" className={classes.btn} color='primary' onClick={onSubmit}>Sign In</Button>
-                                    </div>
-                                </form>
-                                <div className={classes.divLink}>
-                                    <Typography>
-                                        Create new account here. <NavLink className={classes.link} to='/'>Create Account</NavLink>
-                                    </Typography>
-                                </div>
-                            </Box>
-                        </Paper>
-                    </Box>
-                </ThemeProvider>
-            </Container>
+                                </Box>
+                            </Paper>
+                        </Box>
+                    </ThemeProvider>
+                </Container>
         </div>
     )
 }

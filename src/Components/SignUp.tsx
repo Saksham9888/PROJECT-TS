@@ -5,7 +5,7 @@ import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-
 import { Theme } from '@material-ui/core/styles'
 import { deepPurple, lightBlue } from '@material-ui/core/colors'
 import '@fontsource/roboto'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, Router, BrowserRouter } from 'react-router-dom'
 
 const theme = createTheme({
     palette: {
@@ -167,8 +167,8 @@ const SignUp = () => {
             return false
         }
         context.signUpData(formField)
-        if (context.signUpData(formField)) { 
-            history.push('./signin') 
+        if (context.signUpData(formField)) {
+            history.push('./signin')
         }
         // while(context.signUpData(formField)== true){
         //     history.push('./signin')
@@ -180,107 +180,111 @@ const SignUp = () => {
     const classes = useStyles();
     return (
         <div style={{ backgroundColor: 'black' }}>
-            <Container className={classes.root}>
-                <ThemeProvider theme={theme}>
-                    <Box className={classes.outterBox}>
-                        <Paper className={classes.paper}>
-                            <Box className={classes.upperBox1}>
-                                <Typography className={classes.box1UpperText} variant='h5'>Sign Up</Typography>
-                                <Typography className={classes.box1LowerText} variant='subtitle2'>Please Fill In This Form To Create An Account</Typography>
-                            </Box>
-                            <Divider />
-                            <Box className={classes.box}>
-                                <form>
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            autoComplete='off'
-                                            label='First Name'
-                                            className={classes.nameField}
-                                            size="small"
-                                            name="firstName"
-                                            type="text"
-                                            variant="outlined"
-                                            value={formField.firstName}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField
-                                            autoComplete='off'
-                                            label='Last Name'
-                                            className={classes.nameField}
-                                            size="small"
-                                            name="lastName"
-                                            type="text"
-                                            variant="outlined"
-                                            value={formField.lastName}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
+                <Container className={classes.root}>
+                    <ThemeProvider theme={theme}>
+                        <Box className={classes.outterBox}>
+                            <Paper className={classes.paper}>
+                                <Box className={classes.upperBox1}>
+                                    <Typography className={classes.box1UpperText} variant='h5'>Sign Up</Typography>
+                                    <Typography className={classes.box1LowerText} variant='subtitle2'>Please Fill In This Form To Create An Account</Typography>
+                                </Box>
+                                <Divider />
+                                <Box className={classes.box}>
+                                    <form>
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                title= 'firstName'
+                                                autoComplete='off'
+                                                label='First Name'
+                                                className={classes.nameField}
+                                                size="small"
+                                                name="firstName"
+                                                type="text"
+                                                variant="outlined"
+                                                value={formField.firstName}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                title= 'lastName'
+                                                autoComplete='off'
+                                                label='Last Name'
+                                                className={classes.nameField}
+                                                size="small"
+                                                name="lastName"
+                                                type="text"
+                                                variant="outlined"
+                                                value={formField.lastName}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
 
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            label='Email'
-                                            autoComplete='off'
-                                            className={classes.inputField}
-                                            size="small"
-                                            name="email"
-                                            type="text"
-                                            variant="outlined"
-                                            value={formField.email}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            label='Password'
-                                            autoComplete='off'
-                                            className={classes.inputField}
-                                            size="small"
-                                            name="password"
-                                            type="password"
-                                            variant="outlined"
-                                            value={formField.password}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={classes.nameDiv}>
-                                        <TextField
-                                            label='Confirm Password'
-                                            autoComplete='off'
-                                            className={classes.inputField}
-                                            size="small"
-                                            name="confirmPassword"
-                                            type="password"
-                                            variant="outlined"
-                                            value={formField.confirmPassword}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={classes.divCheckBox}>
-                                        <Checkbox className={classes.checkBox} color='primary' onClick={checkBoxToogle} />
-                                        <Typography className={classes.checkBoxText} >
-                                            I accept the
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                title= 'email'
+                                                label='Email'
+                                                autoComplete='off'
+                                                className={classes.inputField}
+                                                size="small"
+                                                name="email"
+                                                type="text"
+                                                variant="outlined"
+                                                value={formField.email}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                title= 'password'
+                                                label='Password'
+                                                autoComplete='off'
+                                                className={classes.inputField}
+                                                size="small"
+                                                name="password"
+                                                type="password"
+                                                variant="outlined"
+                                                value={formField.password}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className={classes.nameDiv}>
+                                            <TextField
+                                                label='Confirm Password'
+                                                autoComplete='off'
+                                                className={classes.inputField}
+                                                size="small"
+                                                name="confirmPassword"
+                                                type="password"
+                                                variant="outlined"
+                                                value={formField.confirmPassword}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className={classes.divCheckBox}>
+                                            <Checkbox className={classes.checkBox} color='primary' onClick={checkBoxToogle} />
+                                            <Typography className={classes.checkBoxText} >
+                                                I accept the
                                             <Link className={classes.link} to='privacyPolicy'>
-                                                Terms of Use</Link> &
+                                                    Terms of Use</Link> &
                                                  <Link className={classes.link} to='privacyPolicy'>
-                                                Privacy Policy
+                                                    Privacy Policy
                                                      </Link>
-                                        </Typography>
-                                    </div>
-                                    <div className={classes.btnDiv}>
-                                        <Button variant="contained" onClick={Submit}
-                                            className={classes.btn} color='primary'>
-                                            Sign Up
+                                            </Typography>
+                                        </div>
+                                        <div className={classes.btnDiv}>
+                                            <Button variant="contained" onClick={Submit}
+                                                className={classes.btn} color='primary'>
+                                                Sign Up
                                         </Button>
+                                        </div>
+                                    </form>
+                                    <div className={classes.divLink}>
+                                        <Typography>Already have an account? <Link className={classes.link} to='/signin'>LogIn Here</Link></Typography>
                                     </div>
-                                </form>
-                                <div className={classes.divLink}>
-                                    <Typography>Already have an account? <Link className={classes.link} to='/signin'>LogIn Here</Link></Typography>
-                                </div>
-                            </Box>
-                        </Paper>
-                    </Box>
-                </ThemeProvider>
-            </Container>
+                                </Box>
+                            </Paper>
+                        </Box>
+                    </ThemeProvider>
+                </Container>
         </div>
     )
 }

@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { Toolbar, Box, Typography, Paper, AppBar, TextField, TextareaAutosize, Divider, Button, Grid } from '@material-ui/core';
 import { makeStyles, ThemeProvider, createTheme, createStyles } from '@material-ui/core/styles';
 import { lightBlue } from '@material-ui/core/colors';
-import { exists } from 'fs';
 
 const theme = createTheme({
     palette: {
@@ -125,10 +124,16 @@ const DashBoard = () => {
         setCount(count + 1);
     }
     const onDelete = (id: any) => {
-        data.splice(id, 1); 
-        setData(data);
-        console.log('data', data)
+        console.log('id', id);
+        let index = data.indexOf(id);
+        data.splice(index, 1);
+        setCount(count -1);
+        // setData(data);
         // console.log('arr', arr)
+        // setData(data.filter((e: any) => (
+        //     e!==id
+        //     )))
+            console.log('data', data)
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
